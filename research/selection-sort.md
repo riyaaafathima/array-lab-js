@@ -75,11 +75,11 @@ is sufficiently expensive for the tested input sizes.
 
 ## Results
 
-| Array Size | Run 1 | Run 2 | Run 3 | Average |
-|-----------:|------:|------:|------:|--------:|
-| 1,000 | 4.615 ms | 5.309 ms | 4.719 ms | 4.881 ms |
-| 5,000 | 36.903 ms | 40.554 ms | 38.049 ms | 38.502 ms |
-| 10,000 | 130.052 ms | 142.297 ms | 130.029 ms | 134.126 ms |
+| Array Size |      Run 1 |      Run 2 |      Run 3 |    Average |
+| ---------: | ---------: | ---------: | ---------: | ---------: |
+|      1,000 |   4.615 ms |   5.309 ms |   4.719 ms |   4.881 ms |
+|      5,000 |  36.903 ms |  40.554 ms |  38.049 ms |  38.502 ms |
+|     10,000 | 130.052 ms | 142.297 ms | 130.029 ms | 134.126 ms |
 
 ## Why do the results vary?
 

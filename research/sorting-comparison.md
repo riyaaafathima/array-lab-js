@@ -5,20 +5,22 @@
 The objective of this research is to compare the sorting algorithms
 implemented in ArrayLab:
 
--   Bubble Sort
--   Selection Sort
--   Insertion Sort
+- Bubble Sort
+- Selection Sort
+- Insertion Sort
 
 The comparison combines theoretical time and space complexity with
 benchmark results collected from the implementations.
 
 ## Complexity Comparison
 
-  Algorithm                                Best Case   Average Case   Worst Case   Space
-  -------------------------------------- ----------- -------------- ------------ -------
-  Bubble Sort (current implementation)         O(n²)          O(n²)        O(n²)    O(1)
-  Selection Sort                               O(n²)          O(n²)        O(n²)    O(1)
-  Insertion Sort                                O(n)          O(n²)        O(n²)    O(1)
+Algorithm Best Case Average Case Worst Case Space
+
+---
+
+Bubble Sort (current implementation) O(n²) O(n²) O(n²) O(1)
+Selection Sort O(n²) O(n²) O(n²) O(1)
+Insertion Sort O(n) O(n²) O(n²) O(1)
 
 ## Theory
 
@@ -58,7 +60,7 @@ The benchmarks use the custom `DynamicArray` implementation.
 
 For the sorting experiments, reverse-sorted input was used:
 
-``` text
+```text
 [n, n-1, n-2, ..., 2, 1]
 ```
 
@@ -71,14 +73,16 @@ Each experiment was run three times.
 
 Execution time was measured using:
 
-``` js
-process.hrtime.bigint()
+```js
+process.hrtime.bigint();
 ```
 
 # Bubble Sort Results
 
     Array Size   Run 1 (ms)   Run 2 (ms)   Run 3 (ms)   Average (ms)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000        7.367        6.454        6.882          6.901
          5,000       70.036       69.029       69.584         69.550
         10,000      254.839      256.579      257.064        256.161
@@ -98,7 +102,9 @@ mathematically prove Big-O complexity.
 # Selection Sort Results
 
     Array Size   Run 1 (ms)   Run 2 (ms)   Run 3 (ms)   Average (ms)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000        4.615        5.309        4.719          4.881
          5,000       36.903       40.554       38.049         38.502
         10,000      130.052      142.297      130.029        134.126
@@ -117,7 +123,9 @@ minimum.
 # Insertion Sort Results
 
     Array Size   Run 1 (ms)   Run 2 (ms)   Run 3 (ms)   Average (ms)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000        4.703        5.976        4.812          5.164
          5,000       41.960       42.544       40.346         41.617
         10,000      150.541      150.118      150.098        150.252
@@ -136,15 +144,15 @@ processed elements, producing approximately quadratic work.
 
 Consider:
 
-``` text
+```text
 [1, 2, 3, 4, 5]
 ```
 
 For each key, the previous element is already less than or equal to the
 key. Therefore:
 
-``` js
-arr.get(j) > key
+```js
+arr.get(j) > key;
 ```
 
 is immediately false.
@@ -152,7 +160,7 @@ is immediately false.
 The algorithm performs approximately one comparison per element and
 almost no shifting:
 
-``` text
+```text
 n comparisons → O(n)
 ```
 
@@ -160,13 +168,13 @@ n comparisons → O(n)
 
 Even for:
 
-``` text
+```text
 [1, 2, 3, 4, 5]
 ```
 
 Selection Sort still scans the remaining region:
 
-``` text
+```text
 4 comparisons
 3 comparisons
 2 comparisons
@@ -182,8 +190,8 @@ much work each algorithm can avoid when the input is already ordered.
 
 The current Bubble Sort implementation uses:
 
-``` js
-j < arr.size() - i - 1
+```js
+j < arr.size() - i - 1;
 ```
 
 This avoids comparing elements that have already reached their final
@@ -198,10 +206,10 @@ best case.
 
 The benchmark results are consistent with the theoretical complexity:
 
--   Bubble Sort shows approximately quadratic growth.
--   Selection Sort shows approximately quadratic growth.
--   Insertion Sort shows approximately quadratic growth on
-    reverse-sorted input.
+- Bubble Sort shows approximately quadratic growth.
+- Selection Sort shows approximately quadratic growth.
+- Insertion Sort shows approximately quadratic growth on
+  reverse-sorted input.
 
 Exact runtime values depend on the machine, Node.js runtime, JIT
 optimization, operating-system scheduling, garbage collection, and other
@@ -214,24 +222,24 @@ theoretical complexity rather than mathematical proof.
 
 ### Bubble Sort
 
--   Best: O(n²) for the current implementation
--   Average: O(n²)
--   Worst: O(n²)
--   Space: O(1)
+- Best: O(n²) for the current implementation
+- Average: O(n²)
+- Worst: O(n²)
+- Space: O(1)
 
 ### Selection Sort
 
--   Best: O(n²)
--   Average: O(n²)
--   Worst: O(n²)
--   Space: O(1)
+- Best: O(n²)
+- Average: O(n²)
+- Worst: O(n²)
+- Space: O(1)
 
 ### Insertion Sort
 
--   Best: O(n)
--   Average: O(n²)
--   Worst: O(n²)
--   Space: O(1)
+- Best: O(n)
+- Average: O(n²)
+- Worst: O(n²)
+- Space: O(1)
 
 The major conceptual difference is that Insertion Sort can take
 advantage of already sorted input, while Selection Sort continues
@@ -239,23 +247,27 @@ scanning for a minimum regardless of input order.
 
 ## Final Comparison
 
-  -----------------------------------------------------------------------
-  Property          Bubble Sort       Selection Sort    Insertion Sort
-  ----------------- ----------------- ----------------- -----------------
-  Best case         O(n²)\*           O(n²)             O(n)
+---
 
-  Average case      O(n²)             O(n²)             O(n²)
+Property Bubble Sort Selection Sort Insertion Sort
 
-  Worst case        O(n²)             O(n²)             O(n²)
+---
 
-  Space             O(1)              O(1)              O(1)
+Best case O(n²)\* O(n²) O(n)
 
-  Main operation    Adjacent swaps    Find minimum +    Shift + insert
-                                      swap              key
+Average case O(n²) O(n²) O(n²)
 
-  Benefits from     Not in current    No                Yes
-  sorted input      implementation                      
-  -----------------------------------------------------------------------
+Worst case O(n²) O(n²) O(n²)
+
+Space O(1) O(1) O(1)
+
+Main operation Adjacent swaps Find minimum + Shift + insert
+swap key
+
+Benefits from Not in current No Yes
+sorted input implementation
+
+---
 
 `*` The current Bubble Sort implementation has O(n²) best-case
 complexity because it does not use an early-exit optimization.
