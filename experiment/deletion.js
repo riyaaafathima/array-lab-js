@@ -1,5 +1,12 @@
 const DynamicArray = require("../src/dynamicArray.js");
 
+
+/*
+this experiment is measure how long it takes to remove 
+elements from the end of an array 
+expected complexit:o(1) per deletion
+*/
+
 function runExperiment(n) {
     const arr = new DynamicArray(n + 1_000_000);
 
