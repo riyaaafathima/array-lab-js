@@ -2,23 +2,22 @@ const DynamicArray = require("../src/dynamicArray");
 const insertionSort = require("../src/algorithms/sort/insertionSort.js");
 
 function runExperiment(n) {
-    const arr = new DynamicArray(n);
+  const arr = new DynamicArray(n);
 
-    for (let i = n; i > 0; i--) {
-        arr.insert(arr.size(), i);
-    }
+  for (let i = n; i > 0; i--) {
+    arr.insert(arr.size(), i);
+  }
 
-    console.log(`\nArray size: ${n}`);
-    console.log("first:", arr.get(0));
-    console.log("last:", arr.get(arr.size() - 1));
+  console.log(`\nArray size: ${n}`);
 
-    const start = process.hrtime.bigint();
+  console.log("first:", arr.get(0));
 
-    insertionSort(arr);
+  console.log("last:", arr.get(arr.size() - 1));
+  const start = process.hrtime.bigint();
+  insertionSort(arr);
+  const end = process.hrtime.bigint();
 
-    const end = process.hrtime.bigint();
-
-    console.log(`Time: ${end - start} nanoseconds`);
+  console.log(`Time: ${end - start} nanoseconds`);
 }
 
 runExperiment(1000);

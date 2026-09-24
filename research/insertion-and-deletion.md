@@ -11,7 +11,7 @@ and end of the array.
 The goal is to observe whether the experimental results are consistent
 with the theoretical time complexities of these operations.
 
-------------------------------------------------------------------------
+---
 
 ## Theory
 
@@ -20,9 +20,9 @@ with the theoretical time complexities of these operations.
 When inserting an element into the beginning or middle of an array,
 existing elements must be shifted to create space.
 
--   Beginning insertion: O(n)
--   Middle insertion: O(n)
--   End insertion: O(1), when sufficient capacity is available
+- Beginning insertion: O(n)
+- Middle insertion: O(n)
+- End insertion: O(1), when sufficient capacity is available
 
 Although middle insertion shifts fewer elements than beginning
 insertion, it is still O(n) because approximately n/2 elements may need
@@ -35,9 +35,9 @@ Deletion works similarly.
 When deleting from the beginning or middle, elements after the deleted
 index must be shifted left.
 
--   Beginning deletion: O(n)
--   Middle deletion: O(n)
--   End deletion: O(1), when shrinking is not triggered
+- Beginning deletion: O(n)
+- Middle deletion: O(n)
+- End deletion: O(1), when shrinking is not triggered
 
 The `remove()` operation can also trigger `shrink()`. Since `shrink()`
 copies all current elements into a new storage array, shrinking itself
@@ -46,7 +46,7 @@ is O(n).
 Therefore, the O(1) end-deletion result applies when no shrink operation
 is triggered.
 
-------------------------------------------------------------------------
+---
 
 ## Benchmark Setup
 
@@ -56,7 +56,7 @@ implementation in this project.
 For insertion and deletion experiments, the initial capacity was
 intentionally made much larger than the number of elements being tested:
 
-``` js
+```js
 const arr = new DynamicArray(n + 1_000_000);
 ```
 
@@ -65,19 +65,19 @@ operation.
 
 For each array size:
 
--   1,000
--   5,000
--   10,000
+- 1,000
+- 5,000
+- 10,000
 
 the experiment was run three times.
 
 Execution time was measured using:
 
-``` js
-process.hrtime.bigint()
+```js
+process.hrtime.bigint();
 ```
 
-------------------------------------------------------------------------
+---
 
 # Insertion
 
@@ -85,14 +85,16 @@ process.hrtime.bigint()
 
 The experiment measured:
 
-``` js
+```js
 arr.insert(0, -1);
 ```
 
 ### Results
 
     Array Size   Run 1 (ns)   Run 2 (ns)   Run 3 (ns)   Average (ns)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000       73,507       38,150       70,147         60,601
          5,000      136,450      104,703      107,589        116,247
         10,000      295,549      220,997      242,337        252,961
@@ -107,20 +109,22 @@ shifting almost all existing elements one position to the right.
 The benchmark is empirical evidence supporting the theoretical
 complexity, not a mathematical proof.
 
-------------------------------------------------------------------------
+---
 
 ## Middle Insertion
 
 The experiment measured:
 
-``` js
+```js
 arr.insert(Math.floor(n / 2), -1);
 ```
 
 ### Results
 
     Array Size   Run 1 (ns)   Run 2 (ns)   Run 3 (ns)   Average (ns)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000       40,572       39,459       40,591         40,207
          5,000       54,098       55,243       55,842         55,061
         10,000      107,778      105,198      142,708        118,561
@@ -136,23 +140,25 @@ The measured time is lower than beginning insertion in these runs
 because fewer elements need to be shifted, but both operations have the
 same asymptotic complexity: O(n).
 
-------------------------------------------------------------------------
+---
 
 ## End Insertion
 
 The experiment measured repeated end insertions to reduce measurement
 noise:
 
-``` js
+```js
 for (let i = 0; i < 1_000_000; i++) {
-    arr.insert(arr.size(), -1);
+  arr.insert(arr.size(), -1);
 }
 ```
 
 ### Results
 
     Array Size   Run 1 (ns)   Run 2 (ns)   Run 3 (ns)   Average (ns)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000    4,697,136    4,933,230    4,498,768      4,709,711
          5,000    2,706,833    2,533,936    2,612,387      2,617,719
         10,000    2,746,578    3,927,042    3,082,084      3,251,901
@@ -168,7 +174,7 @@ scheduling, JIT optimization, and other system activity.
 This behavior is consistent with O(1) end insertion when sufficient
 capacity is available.
 
-------------------------------------------------------------------------
+---
 
 # Deletion
 
@@ -176,16 +182,18 @@ capacity is available.
 
 The experiment performed 1,000 deletions from index 0:
 
-``` js
+```js
 for (let i = 0; i < 1000; i++) {
-    arr.remove(0);
+  arr.remove(0);
 }
 ```
 
 ### Results
 
     Array Size   Run 1 (ns)   Run 2 (ns)   Run 3 (ns)   Average (ns)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000    2,319,964    2,715,782    2,032,082      2,355,943
          5,000    5,694,615    6,264,945    5,839,332      5,932,964
         10,000   11,158,611    8,924,560   11,285,150     10,456,107
@@ -199,22 +207,24 @@ after index 0 to the left.
 
 This is consistent with O(n) time complexity.
 
-------------------------------------------------------------------------
+---
 
 ## Middle Deletion
 
 The experiment performed 1,000 deletions from the middle:
 
-``` js
+```js
 for (let i = 0; i < 1000; i++) {
-    arr.remove(Math.floor(arr.size() / 2));
+  arr.remove(Math.floor(arr.size() / 2));
 }
 ```
 
 ### Results
 
     Array Size   Run 1 (ns)   Run 2 (ns)   Run 3 (ns)   Average (ns)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000    2,202,396    2,149,725    2,136,647      2,162,923
          5,000    3,459,491    3,598,725    3,613,105      3,557,107
         10,000    6,592,615    5,537,314    4,346,937      5,492,289
@@ -229,22 +239,24 @@ O(n).
 
 Therefore, middle deletion remains O(n).
 
-------------------------------------------------------------------------
+---
 
 ## End Deletion
 
 The experiment performed 1,000 deletions from the last index:
 
-``` js
+```js
 for (let i = 0; i < 1000; i++) {
-    arr.remove(arr.size() - 1);
+  arr.remove(arr.size() - 1);
 }
 ```
 
 ### Results
 
     Array Size   Run 1 (ns)   Run 2 (ns)   Run 3 (ns)   Average (ns)
-  ------------ ------------ ------------ ------------ --------------
+
+---
+
          1,000      172,849      187,820      171,681        177,450
          5,000      115,399      114,663      149,703        126,588
         10,000      100,766      147,171      116,793        121,577
@@ -259,18 +271,20 @@ from occurring.
 
 The results are therefore consistent with O(1) end deletion.
 
-------------------------------------------------------------------------
+---
 
 # Summary
 
-  Operation               Elements potentially shifted   Expected Complexity
-  --------------------- ------------------------------ ---------------------
-  Insert at beginning                              \~n                  O(n)
-  Insert in middle                               \~n/2                  O(n)
-  Insert at end                                      0                  O(1)
-  Delete at beginning                              \~n                  O(n)
-  Delete in middle                               \~n/2                  O(n)
-  Delete at end                                      0                  O(1)
+Operation Elements potentially shifted Expected Complexity
+
+---
+
+Insert at beginning \~n O(n)
+Insert in middle \~n/2 O(n)
+Insert at end 0 O(1)
+Delete at beginning \~n O(n)
+Delete in middle \~n/2 O(n)
+Delete at end 0 O(1)
 
 The experiments demonstrate an important property of arrays:
 
@@ -280,7 +294,7 @@ The experiments demonstrate an important property of arrays:
 Beginning and middle operations require elements to be shifted, while
 operations at the end do not.
 
-------------------------------------------------------------------------
+---
 
 ## Important Benchmark Limitation
 
@@ -289,17 +303,17 @@ proof of Big-O complexity.
 
 Execution times can vary because of:
 
--   operating-system scheduling
--   CPU activity
--   Node.js runtime behavior
--   JIT optimization
--   garbage collection
--   measurement overhead
+- operating-system scheduling
+- CPU activity
+- Node.js runtime behavior
+- JIT optimization
+- garbage collection
+- measurement overhead
 
 The benchmark therefore helps compare observed growth with theoretical
 complexity rather than proving the complexity itself.
 
-------------------------------------------------------------------------
+---
 
 ## Additional Dynamic Array Consideration
 
@@ -309,17 +323,17 @@ can shrink when the number of elements becomes sufficiently small.
 The `shrink()` operation copies all existing elements into a new storage
 array:
 
-``` js
+```js
 for (let i = 0; i < this.arraySize; i++) {
-    newStorage[i] = this.storage[i];
+  newStorage[i] = this.storage[i];
 }
 ```
 
 Therefore:
 
--   `shrink()` itself is O(n)
--   an end deletion that triggers shrinking can become O(n)
--   the O(1) end-deletion result applies when no shrinking occurs
+- `shrink()` itself is O(n)
+- an end deletion that triggers shrinking can become O(n)
+- the O(1) end-deletion result applies when no shrinking occurs
 
 This distinction is important when analyzing the real cost of
 dynamic-array operations.

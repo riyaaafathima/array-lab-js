@@ -1,6 +1,5 @@
 const DynamicArray = require("../src/dynamicArray.js");
 
-
 /*
 this experiment is measure how long it takes to remove 
 elements from the end of an array 
@@ -8,21 +7,21 @@ expected complexit:o(1) per deletion
 */
 
 function runExperiment(n) {
-    const arr = new DynamicArray(n + 1_000_000);
+  const arr = new DynamicArray(n + 1_000_000);
 
-   for (let i = 0; i < n; i++) {
-        arr.insert(i, i);
-    }
+  for (let i = 0; i < n; i++) {
+    arr.insert(i, i);
+  }
 
-    const start = process.hrtime.bigint();
+  const start = process.hrtime.bigint();
 
-    for (let i = 0; i < 1000; i++) {
-arr.remove(arr.size() - 1);
-    }
-    const end = process.hrtime.bigint();
+  for (let i = 0; i < 1000; i++) {
+    arr.remove(arr.size() - 1);
+  }
+  const end = process.hrtime.bigint();
 
-    console.log(`Array size: ${n}`);
-    console.log(`Time: ${end - start} nanoseconds`);
+  console.log(`Array size: ${n}`);
+  console.log(`Time: ${end - start} nanoseconds`);
 }
 
 runExperiment(1000);

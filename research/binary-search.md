@@ -8,6 +8,7 @@ logarithmic growth by eliminating approximately half of the
 remaining search space after each comparison.
 
 ## Theoretical Complexity
+
 Binary search has a time complexity of O(log n) because the array
 must be sorted, allowing us to compare the target with the middle
 element.
@@ -52,12 +53,10 @@ Each configuration was executed three times.
 
 ## Results
 
-| Array Size | Run 1 | Run 2 | Run 3 | Average |
-|-----------:|------:|------:|------:|--------:|
-| 1,000 | 67.04 ms | 69.34 ms | 71.79 ms | 69.39 ms |
-| 10,000 | 100.67 ms | 102.10 ms | 101.75 ms | 101.51 ms |
-
-
+| Array Size |     Run 1 |     Run 2 |     Run 3 |   Average |
+| ---------: | --------: | --------: | --------: | --------: |
+|      1,000 |  67.04 ms |  69.34 ms |  71.79 ms |  69.39 ms |
+|     10,000 | 100.67 ms | 102.10 ms | 101.75 ms | 101.51 ms |
 
 ## Why do the results vary?
 
